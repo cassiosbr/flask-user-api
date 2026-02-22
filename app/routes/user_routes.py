@@ -10,10 +10,14 @@ def create_user():
     email = data.get('email')
 
     if not name or not email:
-        return jsonify({'error': 'Name and email are required'}), 400
+        return jsonify({'error': 'Nome e email são obrigatórios'}), 400
 
     user_service = UserService()
-    user = user_service.create_user(name, email)
+    try:
+        user = user_service.create_user(name, email)
+    except ValueError as e:
+        return jsonify({'error': str(e)}), 400
+
     return jsonify({'id': user.id, 'name': user.name, 'email': user.email}), 201
 
 @bp.route('/', methods=['GET'])
