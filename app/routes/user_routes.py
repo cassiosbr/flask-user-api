@@ -40,8 +40,8 @@ def get_all_users():
 @jwt_required()
 def get_user_by_id(user_id):
     user_service = UserService()
-    user = user_service.get_user_by_id(user_id)
-    if user:
+    try:
+        user = user_service.get_user_by_id(user_id)
         return jsonify({'id': user.id, 'name': user.name, 'email': user.email}), 200
-    else:
-        return jsonify({'error': 'Usuário não encontrado'}), 404
+    except ValueError as e:
+        return jsonify({'error': str(e)}), 404
