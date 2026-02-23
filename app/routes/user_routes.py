@@ -12,7 +12,7 @@ def create_user():
 
     data = request.get_json()
     if not data:
-        return jsonify({'error': 'JSON payload obrigatório'}), 400
+        return jsonify({'error': 'JSON payload é obrigatório'}), 400
     
     name = data.get('name')
     email = data.get('email')
@@ -44,4 +44,4 @@ def get_user_by_id(user_id):
     if user:
         return jsonify({'id': user.id, 'name': user.name, 'email': user.email}), 200
     else:
-        return jsonify({'error': 'User not found'}), 404
+        return jsonify({'error': 'Usuário não encontrado'}), 404
