@@ -5,12 +5,15 @@ bp = Blueprint('user_routes', __name__, url_prefix='/users')
 
 @bp.route('/', methods=['POST'])
 def create_user():
+    if not request.is_json:
+        return jsonify({'error': 'Content-Type deve ser application/json'}), 415
+
     data = request.get_json()
+    if not data:
+        return jsonify({'error': 'JSON payload obrigatório'}), 400
+    
     name = data.get('name')
     email = data.get('email')
-
-    if not name or not email:
-        return jsonify({'error': 'Nome e email são obrigatórios'}), 400
 
     user_service = UserService()
     try:

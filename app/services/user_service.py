@@ -8,6 +8,9 @@ class UserService:
 
     def create_user(self, name, email):
 
+        if not name or not email:
+            raise ValueError('Nome e email são obrigatórios')
+
         if len(name) > 100:
             raise ValueError('Nome deve ter 100 caracteres ou menos')
         
