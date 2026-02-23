@@ -14,8 +14,9 @@ class UserService:
         if len(name) > 100:
             raise ValueError('Nome deve ter 100 caracteres ou menos')
         
-        if User.query.filter_by(email=email).first():
+        if self.user_repository.get_user_by_email(email):
             raise ValueError('Email já existe')
+        
         return self.user_repository.create_user(name, email)
 
     def get_all_users(self):
