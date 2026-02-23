@@ -1,7 +1,7 @@
 from app.repositories.user_repository import UserRepository
-from app.model.user import User
 
 class UserService:
+    
     # __init__ criado para permitir a injeção de dependência do UserRepository, facilitando testes unitários
     def __init__(self, user_repository=None):
         self.user_repository = user_repository or UserRepository
